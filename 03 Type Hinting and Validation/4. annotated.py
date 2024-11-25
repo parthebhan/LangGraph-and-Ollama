@@ -13,21 +13,18 @@ def sqaure(x: Annotated[int, (0, 100)]) -> int:
     Raises:
         ValueError: If the input does not fall within the specified range.
     """
-    # Retrieve type hints for the function
-    type_hints = get_type_hints(sqaure, include_extras=True)
+
+    type_hints = get_type_hints(sqaure, include_extras=True) 
     hint = type_hints['x']
-    
-    # Check if the type hint is Annotated
+
     if get_origin(hint) is Annotated:
         hint_type, *hint_args = get_args(hint)
-        low, high = hint_args[0]  # Unpack the range from the annotation
+        low, high = hint_args[0]
         if not (low <= x <= high):
-            raise ValueError(f"{x} falls outside the boundary {low}-{high}")
-    
-    # If validation passes, return the doubled value
-    return x ** 2 
+            raise ValueError(f"Input value must be between {low} and {high}")
+        
+    return x * x
 
+print(sqaure(-10))
 
-print(sqaure(50))   # Should print 100
-# print(sqaure(101))  # Should raise ValueError
 

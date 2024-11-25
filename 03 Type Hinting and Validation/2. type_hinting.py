@@ -1,34 +1,59 @@
 from typing import List, Tuple, Dict, Set, Union, Optional, Any
 
-# Simple type hinting
-def greet(name: str) -> str:
-    return f"Hello, {name}!"
-print(greet("Alice"))
+# type hinting 
+# 1. static type hinting <- mypy
+# 2. dynamic type hinting or runtime type hinting <- pydantic or python interpreter
 
+def greeting(name: str) -> str:
+    return f"Hello, {name}"
+
+
+print(greeting("John Doe"))
+
+print(greeting(0))
 
 def add(a: int, b: int) -> int:
     return a + b
-print(add(3, 5))
 
+print(add(1, 2))
+# print(add(1, '2'))
 
-def average(numbers: List[float]) -> float:
+def average(numbers: List[int]) -> float:
     return sum(numbers) / len(numbers)
-print(average([1.0, 2.0, 3.0]))
 
-# Using Tuple, Dict, and Set
-def process_data(data: Tuple[int, str, float]) -> Dict[str, Any]:
-    return {
-        "id": data[0],
-        "name": data[1],
-        "value": data[2]
-    }
-print(process_data((1, "example", 3.14)))
+print(average([1, 2, 3, 4, 5]))
 
-def unique_items(items: List[int]) -> Set[int]:
-    return set(items)
-print(unique_items([1, 2, 2, 3, 4, 4]))
 
-# Using Union and Optional
-def get_value(data: Dict[str, Union[int, str]], key: str) -> Optional[Union[int, str]]:
-    return data.get(key)
-print(get_value({"key1": 42, "key2": "value"}, "key1"))
+# Use Tuple, Dict and set
+def get_user() -> Tuple[str, int, str]:
+    return ("John Doe", 30, "male")
+
+print(get_user())
+
+def process_user(user: Tuple[str, int, str]) -> None:
+    print(f"Name: {user[0]}, Age: {user[1]} Gender: {user[2]}")
+
+process_user(get_user())
+
+def unique_numbers(numbers: List[int]) -> Set[int]:
+    return set(numbers)
+
+print(unique_numbers([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]))
+
+
+def get_user_info() -> Dict[str, Union[str, int]]:
+    return {"name": "John Doe", "age": 30}
+
+print(get_user_info())
+
+
+def get_user_info(data: Dict[str, Union[str, int]]) -> None:
+    print(f"Name: {data['name']}, Age: {data['age']}")
+
+get_user_info({'name': 'John Doe', 'age': 35})
+get_user_info({'name': 'John Doe', 'age': '35'})
+
+def get_user_info(data):
+    print(f"Name: {data['name']}, Age: {data['age']}")
+
+get_user_info({'name': 'John Doe', 'age': 35})
